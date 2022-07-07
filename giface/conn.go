@@ -2,7 +2,7 @@ package giface
 
 import "net"
 
-type ConnectionInterface interface {
+type Conn interface {
 	Start()
 	Stop()
 	GetTCPConn() *net.TCPConn

@@ -7,13 +7,14 @@ import (
 )
 
 type Conn struct {
-	TCPServer giface.ServerInterface
+	TCPServer giface.Server
 	Conn      *net.TCPConn
 	ConnID    uint32
 	IsClosed  bool
 }
 
-func NewConn(server giface.ServerInterface, conn *net.TCPConn, connID uint32) *Conn {
+// NewConn 创建一个业务连接
+func NewConn(server giface.Server, conn *net.TCPConn, connID uint32) giface.Conn {
 	c := &Conn{
 		TCPServer: server,
 		Conn:      conn,
@@ -38,6 +39,6 @@ func (c *Conn) GetConnId() uint32 {
 func (c *Conn) RemoteAddr() net.Addr {
 	return c.Conn.RemoteAddr()
 }
-func (c *Conn) Send() {
+func (c *Conn) SendMsg() {
 	// TODO
 }

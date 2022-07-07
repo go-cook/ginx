@@ -22,7 +22,7 @@ type Server struct {
 }
 
 // NewServer 创建一个服务器句柄
-func NewServer(name string) giface.ServerInterface {
+func NewServer(name string) giface.Server {
 	s := &Server{
 		Name:      name,
 		IPVersion: "tcp4",
@@ -61,6 +61,23 @@ func (s *Server) Start() {
 			}
 			fmt.Println("Get conn remote addr = ", conn.RemoteAddr().String())
 
+			go func() {
+				for {
+					buf := make([]byte, 512)
+					cnt, err := conn.Read(buf)
+					if err != nil {
+						fmt.Println("conn read err", err)
+						continue
+					}
+					fmt.Println("conn read count:", cnt)
+
+					// 业务处理
+					if _, err := conn.Write(buf[:cnt]); err != nil {
+						fmt.Println("write back buf err	", err)
+						continue
+					}
+				}
+			}()
 			// TODO
 		}
 	}()
@@ -74,6 +91,6 @@ func (s *Server) Stop() {
 func (s *Server) Server() {
 	s.Start()
 
-	//阻塞,否则主Go退出， listenner的go将会退出
-	select{}
+	//阻塞,否则主Go退出， listener的go将会退出
+	select {}
 }
