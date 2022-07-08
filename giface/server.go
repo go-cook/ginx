@@ -8,4 +8,6 @@ type Server interface {
 	Stop()
 	// 运行服务
 	Server()
+
+	AddRouter(msgId uint32, router Router)
 }

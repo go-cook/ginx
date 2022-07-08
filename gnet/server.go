@@ -48,11 +48,16 @@ func (s *Server) Start() {
 		if err != nil {
 			panic(err)
 		}
+
 		//已经监听成功
 		fmt.Println("start ginx server  ", s.Name, " succ, now listenning...")
 
+		var CId uint32
+		CId = 0
+
 		// 3 启动server网络连接业务
 		for {
+
 			// 3.1 阻塞等待客户端建立连接请求
 			conn, err := listener.AcceptTCP()
 			if err != nil {
@@ -60,7 +65,7 @@ func (s *Server) Start() {
 				continue
 			}
 			fmt.Println("Get conn remote addr = ", conn.RemoteAddr().String())
-
+			CId++
 			go func() {
 				for {
 					buf := make([]byte, 512)
@@ -71,21 +76,21 @@ func (s *Server) Start() {
 					}
 					fmt.Println("conn read count:", cnt)
 
-					// 业务处理
-					if _, err := conn.Write(buf[:cnt]); err != nil {
-						fmt.Println("write back buf err	", err)
+					conn := NewConn(s, conn, CId)
+
+					if err := conn.SendMsg(conn.GetConnId(), buf); err != nil {
 						continue
 					}
+					//go conn.Start()
 				}
 			}()
-			// TODO
 		}
 	}()
 
 }
 
 func (s *Server) Stop() {
-
+	fmt.Println("[STOP] Ginx server , name ", s.Name)
 }
 
 func (s *Server) Server() {
@@ -93,4 +98,8 @@ func (s *Server) Server() {
 
 	//阻塞,否则主Go退出， listener的go将会退出
 	select {}
+}
+
+func (s *Server) AddRouter(msgId uint32, router giface.Router) {
+
 }
