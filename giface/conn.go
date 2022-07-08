@@ -8,5 +8,5 @@ type Conn interface {
 	GetTCPConn() *net.TCPConn
 	GetConnId() uint32
 	RemoteAddr() net.Addr
-	SendMsg()
+	SendMsg(msgID uint32, data []byte) error
 }
