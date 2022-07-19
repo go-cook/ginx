@@ -94,7 +94,10 @@ func (s *Server) Start() {
 
 			//3.2 设置服务器最大连接控制,如果超过最大连接，那么则关闭此新的连接
 			if s.ConnMgr.Count() >= 1024 {
-				conn.Close()
+				err := conn.Close()
+				if err != nil {
+					return
+				}
 				continue
 			}
 

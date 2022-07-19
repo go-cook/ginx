@@ -2,7 +2,7 @@ package gnet
 
 import "github.com/go-ll/ginx/giface"
 
-// 封装一个请求
+// Request 封装一个请求
 type Request struct {
 	conn giface.Conn
 	msg  giface.Message
