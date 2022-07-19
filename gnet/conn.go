@@ -181,7 +181,7 @@ func (c *Conn) SendBuffMsg(msgID uint32, data []byte) error {
 	defer idleTimeout.Stop()
 
 	if c.IsClosed == true {
-		return errors.New("Connection closed when send buff msg")
+		return errors.New("connection closed when send buff msg")
 	}
 
 	//将data封包，并且发送
@@ -202,7 +202,6 @@ func (c *Conn) SendBuffMsg(msgID uint32, data []byte) error {
 	//写回客户端
 	//c.msgBuffChan <- msg
 
-	return nil
 }
 
 func (c *Conn) SetProperty(key string, value any) {

@@ -19,9 +19,9 @@ type Conn interface {
 	SendMsg(msgID uint32, data []byte) error
 	SendBuffMsg(msgId uint32, data []byte) error
 
-	//设置链接属性
+	// SetProperty 设置链接属性
 	SetProperty(key string, value any)
-	//获取链接属性
+	// GetProperty 获取链接属性
 	GetProperty(key string) (any, error)
 	RemoveProperty(key string)
 }

@@ -1,6 +1,6 @@
 package giface
 
-// 封装一个请求消息
+// Message 封装一个请求消息
 type Message interface {
 	GetSize() uint32    // 获取消息大小
 	GetMsgId() uint32   // 获取消息ID

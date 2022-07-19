@@ -118,11 +118,11 @@ func (r *HelloRouter) Handle(request giface.Request) {
 	}
 }
 
-func (r *HelloRouter) PreHandle(request giface.Request) {
+func (r *HelloRouter) PreHandle(giface.Request) {
 
 }
 
-func (r *HelloRouter) PostHandle(request giface.Request) {
+func (r *HelloRouter) PostHandle(giface.Request) {
 
 }
 
@@ -135,7 +135,7 @@ func DoConnectionBegin(conn giface.Conn) {
 }
 
 //连接断开的时候执行
-func DoConnectionLost(conn giface.Conn) {
+func DoConnectionLost(giface.Conn) {
 	fmt.Println("DoConnectionLost is Called ... ")
 }
 
@@ -181,15 +181,6 @@ type CloseConnectionBeforeSendMsgRouter struct {
 	BaseRouter
 }
 
-type DemoPacket struct {
-	packet giface.Pack
-}
-
-func (d *DemoPacket) Pack(msg giface.Message) ([]byte, error) {
-	time.Sleep(time.Second * 1)
-	return d.packet.Pack(msg)
-}
-
 func (br *CloseConnectionBeforeSendMsgRouter) Handle(req giface.Request) {
 	connection := req.GetConn()
 
@@ -199,11 +190,11 @@ func (br *CloseConnectionBeforeSendMsgRouter) Handle(req giface.Request) {
 	fmt.Println("send: ", msg)
 }
 
-func (br *CloseConnectionBeforeSendMsgRouter) PreHandle(req giface.Request) {
+func (br *CloseConnectionBeforeSendMsgRouter) PreHandle(giface.Request) {
 
 }
 
-func (br *CloseConnectionBeforeSendMsgRouter) PostHandle(req giface.Request) {
+func (br *CloseConnectionBeforeSendMsgRouter) PostHandle(giface.Request) {
 
 }
 
