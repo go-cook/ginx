@@ -1,6 +1,6 @@
 package giface
 
-// 定义服务接口
+// Server 定义服务接口
 type Server interface {
 	Start()                                //启动服务器方法
 	Stop()                                 //停止服务器方法
