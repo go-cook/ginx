@@ -50,6 +50,6 @@ start ginx server   ginx  succ, now listenning...
 
 # 预览
 ![](./images/1.png)
-![](./images/1.png)
+![](./images/2.png)
 
 
